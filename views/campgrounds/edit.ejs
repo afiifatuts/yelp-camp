@@ -1,0 +1,102 @@
+<% layout('layouts/boilerplate')%>
+
+<div class="row">
+  <h1 class="text-center">Edit Penginapan Baru</h1>
+  <div class="col-md-6 offset-md-3">
+    <form
+      action="/campgrounds/<%=campground._id%>?_method=PUT"
+      method="POST"
+      novalidate
+      class="validated-form"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label class="form-label" for="title">Nama Penginapan</label>
+        <input
+          class="form-control"
+          type="text"
+          id="title"
+          name="campground[title]"
+          placeholder="Nama Penginapan"
+          value="<%=campground.title%>"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="location">Lokasi</label>
+        <input
+          class="form-control"
+          type="text"
+          id="location"
+          name="campground[location]"
+          placeholder="Lokasi Penginapan"
+          value="<%=campground.location%>"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="price">Harga Penginapan</label>
+        <div class="input-group">
+          <span class="input-group-text" id="price-label">Rp</span>
+          <input
+            class="form-control"
+            type="text"
+            id="price"
+            name="campground[price]"
+            value="<%=campground.price%>"
+            placeholder="Harga Penginapan"
+            aria-label="price"
+            aria-describedby="price-label"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="description">Deskripsi</label>
+        <textarea
+          class="form-control"
+          type="text"
+          id="description"
+          name="campground[description]"
+          placeholder="Deskripsi Anda..."
+          required
+        >
+ <%=campground.description%></textarea
+        >
+      </div>
+
+      <div class="input-group mb-3">
+        <input
+          type="file"
+          class="form-control"
+          id="image"
+          name="image"
+          multiple
+        />
+        <label class="input-group-text" for="image">Upload</label>
+      </div>
+
+      <div class="mb-3">
+        <% campground.images.forEach(function(img,i){%>
+        <img src="<%=img.thumbnail%>" class="img-thumbnail" alt="" />
+        <div class="form-check-inline">
+          <input
+            type="checkbox"
+            id="image-<%=i%>"
+            name="deleteImages[]"
+            value="<%=img.filename%>"
+          />
+        </div>
+        <label for="image-<%=i%>">Delete image?</label>
+        <%})%>
+      </div>
+
+      <div class="mb-3">
+        <button class="btn btn-info">Edit Penginapan</button>
+      </div>
+    </form>
+    <a href="/campgrounds/<%= campground._id%>">Back to Campground</a>
+  </div>
+</div>
